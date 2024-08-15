@@ -1,0 +1,15 @@
+{
+	"include": ["**/*.ts", "**/*.tsx"],
+	"extends": ["@epic-web/config/typescript"],
+	"compilerOptions": {
+		"module": "NodeNext",
+		"paths": {
+			"#app/*": ["./app/*"],
+			"#tests/*": ["./tests/*"],
+			"@/icon-name": [
+				"./app/components/ui/icons/name.d.ts",
+				"./types/icon-name.d.ts"
+			]
+		}
+	}
+}
