@@ -221,6 +221,7 @@ function App() {
 								</Button>
 							)}
 						</div>
+						<ThemeSwitch userPreference={data.requestInfo.userPrefs.theme} />
 						<div className="block w-full sm:hidden">{searchBar}</div>
 					</nav>
 				</header>
@@ -228,13 +229,13 @@ function App() {
 				<div className="flex-1">
 					<Outlet />
 				</div>
-
-				<div className="container flex justify-between pb-5">
-					<Logo />
-					<ThemeSwitch userPreference={data.requestInfo.userPrefs.theme} />
-				</div>
 			</div>
-			<EpicToaster closeButton position="top-center" theme={theme} />
+			<EpicToaster
+				closeButton
+				position="top-center"
+				theme={theme}
+				toastOptions={{ classNames: { closeButton: 'relative left-full -top-0' } }}
+			/>
 			<EpicProgress />
 		</Document>
 	)

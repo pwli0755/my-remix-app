@@ -2,8 +2,20 @@
 	"include": ["**/*.ts", "**/*.tsx"],
 	"extends": ["@epic-web/config/typescript"],
 	"compilerOptions": {
-		"module": "NodeNext",
+		"isolatedModules": true,
+		"esModuleInterop": true,
+		"jsx": "react-jsx",
+		"module": "ESNext",
+		"moduleResolution": "Bundler",
+		"resolveJsonModule": true,
+		"target": "ES2022",
+		"strict": true,
+		"allowJs": true,
+		"skipLibCheck": true,
+		"forceConsistentCasingInFileNames": true,
+		"baseUrl": ".",
 		"paths": {
+			// "@/*": ["./app/*"],
 			"#app/*": ["./app/*"],
 			"#tests/*": ["./tests/*"],
 			"@/icon-name": [
@@ -11,5 +23,7 @@
 				"./types/icon-name.d.ts"
 			]
 		}
-	}
+	},
+	// Vite takes care of building everything, not tsc.
+	"noEmit": true
 }

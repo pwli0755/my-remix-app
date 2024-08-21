@@ -129,7 +129,8 @@ export default function SignupRoute() {
 			const result = parseWithZod(formData, { schema: SignupSchema })
 			return result
 		},
-		shouldRevalidate: 'onBlur',
+		shouldValidate: 'onBlur',
+		shouldRevalidate: 'onInput',
 	})
 
 	return (

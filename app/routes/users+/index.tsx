@@ -21,6 +21,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
 	if (searchTerm === '') {
 		return redirect('/users')
 	}
+	// fake a delay
+	await new Promise((resolve) => setTimeout(resolve, 1000))
 
 	const like = `%${searchTerm ?? ''}%`
 	const rawUsers = await prisma.$queryRaw`

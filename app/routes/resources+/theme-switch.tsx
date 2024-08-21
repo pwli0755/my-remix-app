@@ -55,17 +55,17 @@ export function ThemeSwitch({
 		mode === 'system' ? 'light' : mode === 'light' ? 'dark' : 'system'
 	const modeLabel = {
 		light: (
-			<Icon name="sun">
+			<Icon name="sun" className="size-6">
 				<span className="sr-only">Light</span>
 			</Icon>
 		),
 		dark: (
-			<Icon name="moon">
+			<Icon name="moon" className="size-6">
 				<span className="sr-only">Dark</span>
 			</Icon>
 		),
 		system: (
-			<Icon name="laptop">
+			<Icon name="laptop" className="size-6">
 				<span className="sr-only">System</span>
 			</Icon>
 		),
@@ -86,7 +86,7 @@ export function ThemeSwitch({
 			<div className="flex gap-2">
 				<button
 					type="submit"
-					className="flex h-8 w-8 cursor-pointer items-center justify-center"
+					className="flex size-8 cursor-pointer items-center justify-center"
 				>
 					{modeLabel[mode]}
 				</button>
