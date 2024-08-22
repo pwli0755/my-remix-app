@@ -26,6 +26,7 @@ import {
 } from '@remix-run/react'
 import { toast } from 'sonner'
 import { useEffect } from 'react'
+import { ClientOnly } from 'remix-utils/client-only'
 
 const UserSubscriptionSchema = z.object({
 	name: z
@@ -166,6 +167,24 @@ export default function App() {
 							{ value: 'developer', name: 'Developer' },
 							{ value: 'designer', name: 'Design' },
 							{ value: 'manager', name: 'Manager' },
+							{ value: 'manager1', name: 'Manager1' },
+							{ value: 'manager2', name: 'Manager2' },
+							{ value: 'manager3', name: 'Manager3' },
+							{ value: 'manager4', name: 'Manager4' },
+							{ value: 'manager5', name: 'Manager5' },
+							{ value: 'manager6', name: 'Manager6' },
+							{ value: 'manager7', name: 'Manager7' },
+							{ value: 'manager8', name: 'Manager8' },
+							{ value: 'manager9', name: 'Manager9' },
+							{ value: 'manager10', name: 'Manager10' },
+							{ value: 'manager11', name: 'Manager11' },
+							{ value: 'manager12', name: 'Manager12' },
+							{ value: 'manager13', name: 'Manager13' },
+							{ value: 'manager14', name: 'Manager14' },
+							{ value: 'manager15', name: 'Manager15' },
+							{ value: 'manager16', name: 'Manager16' },
+							{ value: 'manager17', name: 'Manager17' },
+							{ value: 'manager189999999', name: 'manager189999999' },
 						]}
 					/>
 					{fields.job.errors && <FieldError>{fields.job.errors}</FieldError>}

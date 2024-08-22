@@ -19,6 +19,7 @@ import {
 	unstable_useControl as useControl,
 } from '@conform-to/react';
 import React from 'react';
+import { ScrollArea } from '../ui/scroll-area';
 
 const countries = [
 	{ label: 'Afghanistan', value: 'AF' },
@@ -30,6 +31,16 @@ const countries = [
 	{ label: 'Japan', value: 'JP' },
 	{ label: 'United States', value: 'US' },
 	{ label: 'Uruguay', value: 'UY' },
+	{ label: 'Uruguay1', value: 'UY1' },
+	{ label: 'Uruguay2', value: 'UY2' },
+	{ label: 'Uruguay3', value: 'UY3' },
+	{ label: 'Uruguay4', value: 'UY4' },
+	{ label: 'Uruguay5', value: 'UY5' },
+	{ label: 'Uruguay6', value: 'UY6' },
+	{ label: 'Uruguay7', value: 'UY7' },
+	{ label: 'Uruguay8', value: 'UY8' },
+	{ label: 'Uruguay9', value: 'UY9' },
+
 ];
 
 export function CountryPickerConform({
