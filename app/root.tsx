@@ -234,7 +234,7 @@ function App() {
 				closeButton
 				position="top-center"
 				theme={theme}
-				toastOptions={{ classNames: { closeButton: 'relative left-full -top-0' } }}
+				// toastOptions={{ classNames: { } }}
 			/>
 			<EpicProgress />
 		</Document>

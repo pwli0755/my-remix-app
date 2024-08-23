@@ -7,7 +7,12 @@ import {
 	type LoaderFunctionArgs,
 	type ActionFunctionArgs,
 } from '@remix-run/node'
-import { Link, useFetcher, useLoaderData, useNavigation } from '@remix-run/react'
+import {
+	Link,
+	useFetcher,
+	useLoaderData,
+	useNavigation,
+} from '@remix-run/react'
 import { z } from 'zod'
 import { ErrorList, Field } from '#app/components/forms.tsx'
 import { Button } from '#app/components/ui/button.tsx'
@@ -21,9 +26,10 @@ import {
 	useIsPending,
 } from '#app/utils/misc.tsx'
 import { authSessionStorage } from '#app/utils/session.server.ts'
-import { redirectWithToast } from '#app/utils/toast.server.ts'
+import { type Toast, redirectWithToast } from '#app/utils/toast.server.ts'
 import { NameSchema, UsernameSchema } from '#app/utils/user-validation.ts'
 import { twoFAVerificationType } from './profile.two-factor.tsx'
+import { useToast } from '#app/components/toaster.tsx'
 
 export const handle: SEOHandle = {
 	getSitemapEntries: () => null,
@@ -79,6 +85,7 @@ type ProfileActionArgs = {
 	request: Request
 	userId: string
 	formData: FormData
+	toast?: Toast
 }
 const profileUpdateActionIntent = 'update-profile'
 const signOutOfSessionsActionIntent = 'sign-out-of-sessions'
@@ -218,6 +225,7 @@ async function profileUpdateAction({ userId, formData }: ProfileActionArgs) {
 
 	return json({
 		result: submission.reply(),
+		toast: { type: 'success', title: 'Profile updated' },
 	})
 }
 
@@ -225,6 +233,7 @@ function UpdateProfile() {
 	const data = useLoaderData<typeof loader>()
 
 	const fetcher = useFetcher<typeof profileUpdateAction>()
+	useToast( fetcher.data && (fetcher as { data: { toast?: Toast } }).data.toast)
 
 	const [form, fields] = useForm({
 		id: 'edit-profile',
@@ -239,7 +248,7 @@ function UpdateProfile() {
 		},
 		shouldRevalidate: 'onInput',
 	})
-	
+
 	return (
 		<fetcher.Form preventScrollReset method="POST" {...getFormProps(form)}>
 			<fieldset disabled={fetcher.state !== 'idle'}>
