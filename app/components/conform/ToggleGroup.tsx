@@ -28,11 +28,11 @@ export const ToggleGroupConform = ({
 					toggleGroupRef.current?.focus();
 				}}
 			/>
-			<ToggleGroup
+			<ToggleGroup 
 				{...props}
 				ref={toggleGroupRef}
 				value={control.value}
-				onValueChange={(value) => {
+				onValueChange={(value: string) => {
 					props.onValueChange?.(value);
 					control.change(value);
 				}}

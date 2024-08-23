@@ -7,7 +7,7 @@ import { Spacer } from '#app/components/spacer.tsx'
 import { Icon } from '#app/components/ui/icon.tsx'
 import { requireUserId } from '#app/utils/auth.server.ts'
 import { prisma } from '#app/utils/db.server.ts'
-import { cn } from '#app/utils/misc.tsx'
+import { cn, getUserImgSrc } from '#app/utils/misc.tsx'
 import { useUser } from '#app/utils/user.ts'
 
 export const BreadcrumbHandle = z.object({ breadcrumb: z.any() })
@@ -35,6 +35,7 @@ const BreadcrumbHandleMatch = z.object({
 export default function EditUserProfile() {
 	const user = useUser()
 	const matches = useMatches()
+	console.log({ matches })
 	const breadcrumbs = matches
 		.map((m) => {
 			const result = BreadcrumbHandleMatch.safeParse(m)
@@ -53,6 +54,9 @@ export default function EditUserProfile() {
 				<ul className="flex gap-3">
 					<li>
 						<Link
+							unstable_viewTransition
+							preventScrollReset
+							prefetch="intent"
 							className="text-muted-foreground"
 							to={`/users/${user.username}`}
 						>

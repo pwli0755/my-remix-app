@@ -7,7 +7,7 @@ import {
 	type LoaderFunctionArgs,
 	type ActionFunctionArgs,
 } from '@remix-run/node'
-import { Link, useFetcher, useLoaderData } from '@remix-run/react'
+import { Link, useFetcher, useLoaderData, useNavigation } from '@remix-run/react'
 import { z } from 'zod'
 import { ErrorList, Field } from '#app/components/forms.tsx'
 import { Button } from '#app/components/ui/button.tsx'
@@ -15,7 +15,11 @@ import { Icon } from '#app/components/ui/icon.tsx'
 import { StatusButton } from '#app/components/ui/status-button.tsx'
 import { requireUserId, sessionKey } from '#app/utils/auth.server.ts'
 import { prisma } from '#app/utils/db.server.ts'
-import { getUserImgSrc, useDoubleCheck } from '#app/utils/misc.tsx'
+import {
+	getUserImgSrc,
+	useDoubleCheck,
+	useIsPending,
+} from '#app/utils/misc.tsx'
 import { authSessionStorage } from '#app/utils/session.server.ts'
 import { redirectWithToast } from '#app/utils/toast.server.ts'
 import { NameSchema, UsernameSchema } from '#app/utils/user-validation.ts'
@@ -118,6 +122,7 @@ export default function EditUserProfile() {
 						className="absolute -right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full p-0"
 					>
 						<Link
+							unstable_viewTransition
 							preventScrollReset
 							to="photo"
 							title="Change profile photo"
@@ -232,43 +237,46 @@ function UpdateProfile() {
 			username: data.user.username,
 			name: data.user.name,
 		},
+		shouldRevalidate: 'onInput',
 	})
-
+	
 	return (
-		<fetcher.Form method="POST" {...getFormProps(form)}>
-			<div className="grid grid-cols-6 gap-x-10">
-				<Field
-					className="col-span-3"
-					labelProps={{
-						htmlFor: fields.username.id,
-						children: 'Username',
-					}}
-					inputProps={getInputProps(fields.username, { type: 'text' })}
-					errors={fields.username.errors}
-				/>
-				<Field
-					className="col-span-3"
-					labelProps={{ htmlFor: fields.name.id, children: 'Name' }}
-					inputProps={getInputProps(fields.name, { type: 'text' })}
-					errors={fields.name.errors}
-				/>
-			</div>
+		<fetcher.Form preventScrollReset method="POST" {...getFormProps(form)}>
+			<fieldset disabled={fetcher.state !== 'idle'}>
+				<div className="grid grid-cols-6 gap-x-10">
+					<Field
+						className="col-span-3"
+						labelProps={{
+							htmlFor: fields.username.id,
+							children: 'Username',
+						}}
+						inputProps={getInputProps(fields.username, { type: 'text' })}
+						errors={fields.username.errors}
+					/>
+					<Field
+						className="col-span-3"
+						labelProps={{ htmlFor: fields.name.id, children: 'Name' }}
+						inputProps={getInputProps(fields.name, { type: 'text' })}
+						errors={fields.name.errors}
+					/>
+				</div>
 
-			<ErrorList errors={form.errors} id={form.errorId} />
+				<ErrorList errors={form.errors} id={form.errorId} />
 
-			<div className="mt-8 flex justify-center">
-				<StatusButton
-					type="submit"
-					size="wide"
-					name="intent"
-					value={profileUpdateActionIntent}
-					status={
-						fetcher.state !== 'idle' ? 'pending' : (form.status ?? 'idle')
-					}
-				>
-					Save changes
-				</StatusButton>
-			</div>
+				<div className="mt-8 flex justify-center">
+					<StatusButton
+						type="submit"
+						size="wide"
+						name="intent"
+						value={profileUpdateActionIntent}
+						status={
+							fetcher.state !== 'idle' ? 'pending' : (form.status ?? 'idle')
+						}
+					>
+						Save changes
+					</StatusButton>
+				</div>
+			</fieldset>
 		</fetcher.Form>
 	)
 }

@@ -1,25 +1,25 @@
-import { Check, ChevronsUpDown } from 'lucide-react';
+import { Check, ChevronsUpDown } from 'lucide-react'
 
-import { Button } from '#app/components/ui/button';
+import { Button } from '#app/components/ui/button'
 import {
 	Command,
 	CommandEmpty,
 	CommandGroup,
 	CommandInput,
 	CommandItem,
-} from '#app/components/ui/command';
+} from '#app/components/ui/command'
 import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
-} from '#app/components/ui/popover';
-import { cn } from '#app/utils/misc';
+} from '#app/components/ui/popover'
+import { cn } from '#app/utils/misc'
 import {
 	FieldMetadata,
 	unstable_useControl as useControl,
-} from '@conform-to/react';
-import React from 'react';
-import { ScrollArea } from '../ui/scroll-area';
+} from '@conform-to/react'
+import React from 'react'
+import { ScrollArea } from '../ui/scroll-area'
 
 const countries = [
 	{ label: 'Afghanistan', value: 'AF' },
@@ -40,16 +40,15 @@ const countries = [
 	{ label: 'Uruguay7', value: 'UY7' },
 	{ label: 'Uruguay8', value: 'UY8' },
 	{ label: 'Uruguay9', value: 'UY9' },
-
-];
+]
 
 export function CountryPickerConform({
 	meta,
 }: {
-	meta: FieldMetadata<string>;
+	meta: FieldMetadata<string>
 }) {
-	const triggerRef = React.useRef<HTMLButtonElement>(null);
-	const control = useControl(meta);
+	const triggerRef = React.useRef<HTMLButtonElement>(null)
+	const control = useControl(meta)
 
 	return (
 		<div>
@@ -61,12 +60,13 @@ export function CountryPickerConform({
 				name={meta.name}
 				defaultValue={meta.initialValue}
 				onFocus={() => {
-					triggerRef.current?.focus();
+					triggerRef.current?.focus()
 				}}
 			/>
 			<Popover>
 				<PopoverTrigger asChild>
 					<Button
+						id={meta.id}
 						ref={triggerRef}
 						variant="outline"
 						role="combobox"
@@ -93,7 +93,7 @@ export function CountryPickerConform({
 									value={country.label}
 									key={country.value}
 									onSelect={() => {
-										control.change(country.value);
+										control.change(country.value)
 									}}
 								>
 									<Check
@@ -112,5 +112,5 @@ export function CountryPickerConform({
 				</PopoverContent>
 			</Popover>
 		</div>
-	);
+	)
 }

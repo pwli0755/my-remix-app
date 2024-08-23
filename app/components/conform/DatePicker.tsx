@@ -1,23 +1,23 @@
-import { format } from 'date-fns';
-import { Calendar as CalendarIcon } from 'lucide-react';
-import * as React from 'react';
+import { format } from 'date-fns'
+import { Calendar as CalendarIcon } from 'lucide-react'
+import * as React from 'react'
 
-import { Button } from '#app/components/ui/button';
-import { Calendar } from '#app/components/ui/calendar';
+import { Button } from '#app/components/ui/button'
+import { Calendar } from '#app/components/ui/calendar'
 import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
-} from '#app/components/ui/popover';
-import { cn } from '#app/utils/misc';
+} from '#app/components/ui/popover'
+import { cn } from '#app/utils/misc'
 import {
 	FieldMetadata,
 	unstable_useControl as useControl,
-} from '@conform-to/react';
+} from '@conform-to/react'
 
 export function DatePickerConform({ meta }: { meta: FieldMetadata<Date> }) {
-	const triggerRef = React.useRef<HTMLButtonElement>(null);
-	const control = useControl(meta);
+	const triggerRef = React.useRef<HTMLButtonElement>(null)
+	const control = useControl(meta)
 
 	return (
 		<div>
@@ -31,12 +31,13 @@ export function DatePickerConform({ meta }: { meta: FieldMetadata<Date> }) {
 					meta.initialValue ? new Date(meta.initialValue).toISOString() : ''
 				}
 				onFocus={() => {
-					triggerRef.current?.focus();
+					triggerRef.current?.focus()
 				}}
 			/>
 			<Popover>
 				<PopoverTrigger asChild>
 					<Button
+						id={meta.id}
 						ref={triggerRef}
 						variant={'outline'}
 						className={cn(
@@ -62,5 +63,5 @@ export function DatePickerConform({ meta }: { meta: FieldMetadata<Date> }) {
 				</PopoverContent>
 			</Popover>
 		</div>
-	);
+	)
 }

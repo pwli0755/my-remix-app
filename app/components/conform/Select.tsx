@@ -2,7 +2,13 @@ import {
 	unstable_useControl as useControl,
 	type FieldMetadata,
 } from '@conform-to/react'
-import { useRef, type ElementRef, ComponentProps, useEffect } from 'react'
+import {
+	useRef,
+	type ElementRef,
+	ComponentProps,
+	useEffect,
+	useState,
+} from 'react'
 import {
 	SelectTrigger,
 	Select,
@@ -23,7 +29,7 @@ export const SelectConform = ({
 } & ComponentProps<typeof Select>) => {
 	const selectRef = useRef<ElementRef<typeof SelectTrigger>>(null)
 	const control = useControl(meta)
-
+	const [open, setOpen] = useState(false)
 	return (
 		<>
 			<select
@@ -53,7 +59,7 @@ export const SelectConform = ({
 					}
 				}}
 			>
-				<SelectTrigger ref={selectRef}>
+				<SelectTrigger ref={selectRef} id={meta.id}>
 					<SelectValue placeholder={placeholder} />
 				</SelectTrigger>
 				<SelectContent>
