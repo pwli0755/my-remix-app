@@ -15,6 +15,12 @@ export default {
 				'2xl': '1400px',
 			},
 		},
+		fontFamily: {
+			'sans': ['ui-sans-serif', 'system-ui'],
+			'serif': ['ui-serif', 'Georgia'],
+			'mono': ['ui-monospace', 'SFMono-Regular'],
+			'ZCOOLXiaoWei': ['ZCOOLXiaoWei', 'system-ui'],
+		},
 		extend: extendedTheme,
 	},
 	presets: [marketingPreset],

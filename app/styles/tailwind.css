@@ -3,6 +3,16 @@
 @tailwind utilities;
 
 @layer base {
+	@font-face {
+		font-family: 'ZCOOLXiaoWei';
+		font-style: normal;
+		font-weight: 400;
+		font-display: auto;
+		src:
+			url('/fonts/ZCOOLXiaoWei-Regular.woff2') format('woff2'),
+			url('/fonts/ZCOOLXiaoWei-Regular.woff') format('woff'),
+			url('/fonts/ZCOOLXiaoWei-Regular.ttf') format('truetype');
+	}
 	:root {
 		/* --font-sans: here if you have one */
 		/* --font-mono: here if you got it... */
