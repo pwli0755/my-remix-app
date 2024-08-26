@@ -11,7 +11,9 @@ import { SelectConform } from '#app/components/conform/Select'
 import { SliderConform } from '#app/components/conform/Slider'
 import { SwitchConform } from '#app/components/conform/Switch'
 import { TextareaConform } from '#app/components/conform/Textarea'
-import { ToggleGroupConform } from '#app/components/conform/ToggleGroup'
+import {
+	ToggleGroupConform,
+} from '#app/components/conform/ToggleGroup'
 import { Button } from '#app/components/ui/button'
 import { Label } from '#app/components/ui/label'
 import { getFormProps, useForm } from '@conform-to/react'
@@ -55,6 +57,14 @@ const UserSubscriptionSchema = z.object({
 	accountType: z.enum(['personal', 'business'], {
 		required_error: 'You must select an account type',
 	}),
+	accountTypes: z
+		.array(z.enum(['personal', 'business']), {
+			invalid_type_error: 'Invalid account type',
+		})
+		.refine(
+			(val) => val.length == 0,
+			'You must select at least one account type',
+		),
 	interests: z
 		.array(z.string())
 		.min(3, 'You must select at least three interest'),
@@ -82,6 +92,21 @@ export default function App() {
 	const navigation = useNavigation()
 
 	const [form, fields] = useForm({
+		defaultValue: {
+			name: '11111',
+			dateOfBirth: '2023-09-01',
+			country: 'IT',
+			gender: 'male',
+			agreeToTerms: true,
+			job: 'developer',
+			age: 20,
+			isAdult: true,
+			description: '1111111111111111111',
+			accountType: 'personal',
+			accountTypes: ['personal'],
+			interests: ['react', 'vue', 'svelte'],
+			code: '123456',
+		},
 		// Sync the result of last submission
 		lastResult: navigation.state === 'idle' ? lastResult : null,
 		id: 'signup',
@@ -224,6 +249,21 @@ export default function App() {
 						<FieldError>{fields.accountType.errors}</FieldError>
 					)}
 				</Field>
+				{/* <Field>
+					<Label htmlFor={fields.accountTypes.id}>Account types</Label>
+					<ToggleGroupsConform
+
+						meta={fields.accountTypes}
+						items={[
+							{ value: 'personal', label: 'Personal' },
+							{ value: 'business', label: 'Business' },
+							{ value: 'business2', label: 'Business2' },
+						]}
+					/>
+					{fields.accountTypes.errors && (
+						<FieldError>{fields.accountTypes.errors}</FieldError>
+					)}
+				</Field> */}
 				<Field>
 					<fieldset>Interests</fieldset>
 					<CheckboxGroupConform
