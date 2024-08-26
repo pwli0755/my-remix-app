@@ -12,7 +12,7 @@ const EpicToaster = ({ theme, ...props }: ToasterProps) => {
 					toast:
 						'group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg',
 					description: 'group-[.toast]:text-muted-foreground',
-					closeButton: 'relative left-full -top-[16px] translate-x-1/4 -translate-y-1/4 text-bold',
+					closeButton: 'absolute top-0 left-full',
 					actionButton:
 						'group-[.toast]:bg-primary group-[.toast]:text-primary-foreground',
 					cancelButton:
@@ -21,6 +21,7 @@ const EpicToaster = ({ theme, ...props }: ToasterProps) => {
 				duration:5000
 			}}
 			{...props}
+
 		/>
 	)
 }

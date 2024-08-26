@@ -41,7 +41,13 @@ export default function EditUserProfile() {
 			const result = BreadcrumbHandleMatch.safeParse(m)
 			if (!result.success || !result.data.handle.breadcrumb) return null
 			return (
-				<Link key={m.id} to={m.pathname} className="flex items-center">
+				<Link
+					key={m.id}
+					to={m.pathname}
+					className="flex items-center"
+					unstable_viewTransition
+					preventScrollReset
+				>
 					{result.data.handle.breadcrumb}
 				</Link>
 			)
@@ -70,7 +76,7 @@ export default function EditUserProfile() {
 								'text-muted-foreground': i < arr.length - 1,
 							})}
 						>
-							▶️ {breadcrumb}
+							{'>'} {breadcrumb}
 						</li>
 					))}
 				</ul>
@@ -79,6 +85,6 @@ export default function EditUserProfile() {
 			<main className="mx-auto bg-muted px-6 py-8 md:container md:rounded-3xl">
 				<Outlet />
 			</main>
-		</div>
+			</div>
 	)
 }

@@ -145,7 +145,7 @@ export default function EditUserProfile() {
 			<div className="col-span-6 my-6 h-1 border-b-[1.5px] border-foreground" />
 			<div className="col-span-full flex flex-col gap-6">
 				<div>
-					<Link to="change-email">
+					<Link to="change-email" unstable_viewTransition>
 						<Icon name="envelope-closed">
 							Change email from {data.user.email}
 						</Icon>
@@ -233,7 +233,9 @@ function UpdateProfile() {
 	const data = useLoaderData<typeof loader>()
 
 	const fetcher = useFetcher<typeof profileUpdateAction>()
-	useToast( fetcher.data && (fetcher as { data: { toast?: Toast } }).data.toast)
+	useToast(
+		fetcher.data ? (fetcher as { data: { toast?: Toast } }).data.toast : null,
+	)
 
 	const [form, fields] = useForm({
 		id: 'edit-profile',
