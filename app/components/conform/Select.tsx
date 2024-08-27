@@ -1,5 +1,6 @@
 import {
 	unstable_useControl as useControl,
+	useInputControl,
 	type FieldMetadata,
 } from '@conform-to/react'
 import {
@@ -28,26 +29,20 @@ export const SelectConform = ({
 	placeholder: string
 } & ComponentProps<typeof Select>) => {
 	const selectRef = useRef<ElementRef<typeof SelectTrigger>>(null)
-	const control = useControl(meta)
-	const [open, setOpen] = useState(false)
+	const control = useInputControl(meta);
 	return (
 		<>
-			<select
+			<input
 				name={meta.name}
 				defaultValue={meta.initialValue ?? ''}
 				className="sr-only"
-				ref={control.register}
 				aria-hidden
 				tabIndex={-1}
 				onFocus={() => {
 					selectRef.current?.focus()
 				}}
 			>
-				<option value="" />
-				{items.map((option) => (
-					<option key={option.value} value={option.value} />
-				))}
-			</select>
+			</input>
 
 			<Select
 				{...props}

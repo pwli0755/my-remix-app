@@ -1,9 +1,10 @@
 import {
-	FieldMetadata,
+	type FieldMetadata,
+	getInputProps,
 	unstable_useControl as useControl,
 	useInputControl,
 } from '@conform-to/react'
-import { ComponentProps, ElementRef, useRef } from 'react'
+import { type ComponentProps, type ElementRef, useRef } from 'react'
 import { ToggleGroup, ToggleGroupItem } from '#app/components/ui/toggle-group'
 
 export const ToggleGroupConform = ({
@@ -15,13 +16,12 @@ export const ToggleGroupConform = ({
 	meta: FieldMetadata<string>
 } & Omit<ComponentProps<typeof ToggleGroup>, 'defaultValue'>) => {
 	const toggleGroupRef = useRef<ElementRef<typeof ToggleGroup>>(null)
-	const control = useControl(meta)
+	const control = useInputControl(meta)
 
 	return (
 		<>
 			<input
 				name={meta.name}
-				ref={control.register}
 				className="sr-only"
 				tabIndex={-1}
 				defaultValue={meta.initialValue}
@@ -32,12 +32,13 @@ export const ToggleGroupConform = ({
 			<ToggleGroup
 				{...props}
 				type="single"
-				ref={toggleGroupRef}
 				value={control.value}
+				ref={toggleGroupRef}
 				onValueChange={(value: string) => {
-					(props.onValueChange as (v:string)=>void)?.(value)
+					;(props.onValueChange as (v: string) => void)?.(value)
 					control.change(value)
 				}}
+				onBlur={control.blur}
 			>
 				{items.map((item) => (
 					<ToggleGroupItem key={item.value} value={item.value}>
@@ -49,45 +50,46 @@ export const ToggleGroupConform = ({
 	)
 }
 
-// export const ToggleGroupsConform = ({
-// 	meta,
-// 	items,
-// 	...props
-// }: {
-// 	items: Array<{ value: string; label: string }>
-// 	meta: FieldMetadata<string>
-// } & Omit<ComponentProps<typeof ToggleGroup>, 'defaultValue' | 'type'>) => {
-// 	const toggleGroupRef = useRef<ElementRef<typeof ToggleGroup>>(null)
-// 	const control = useControl(meta)
+export const ToggleGroupsConform = ({
+	meta,
+	items,
+	...props
+}: {
+	items: Array<{ value: string; label: string }>
+	meta: FieldMetadata<string[]>
+} & Omit<ComponentProps<typeof ToggleGroup>, 'defaultValue' | 'type'>) => {
+	const toggleGroupRef = useRef<ElementRef<typeof ToggleGroup>>(null)
+	const control = useInputControl<string[]>(meta)
 
-// 	return (
-// 		<>
-// 			<input
-// 				name={meta.name}
-// 				ref={control.register}
-// 				className="sr-only"
-// 				tabIndex={-1}
-// 				defaultValue={meta.initialValue}
-// 				onFocus={() => {
-// 					toggleGroupRef.current?.focus()
-// 				}}
-// 			/>
-// 			<ToggleGroup
-// 				{...props}
-// 				type="multiple"
-// 				ref={toggleGroupRef}
-// 				value={control.value}
-// 				onValueChange={(value) => {
-// 					props.onValueChange?.(value)
-// 					control.change(value)
-// 				}}
-// 			>
-// 				{items.map((item) => (
-// 					<ToggleGroupItem key={item.value} value={item.value}>
-// 						{item.label}
-// 					</ToggleGroupItem>
-// 				))}
-// 			</ToggleGroup>
-// 		</>
-// 	)
-// }
+	return (
+		<>
+			<input
+				name={meta.name}
+				className="sr-only"
+				tabIndex={-1}
+				defaultValue={meta.initialValue}
+				onFocus={() => {
+					toggleGroupRef.current?.focus()
+				}}
+			/>
+			<ToggleGroup
+				{...props}
+				type="multiple"
+				value={control.value}
+				ref={toggleGroupRef}
+				onValueChange={(value: string[]) => {
+					;(props.onValueChange as (v: string[]) => void)?.(value)
+					control.change(value)
+					console.log('--------------', value)
+				}}
+				onBlur={control.blur}
+			>
+				{items.map((item) => (
+					<ToggleGroupItem key={item.value} value={item.value}>
+						{item.label}
+					</ToggleGroupItem>
+				))}
+			</ToggleGroup>
+		</>
+	)
+}

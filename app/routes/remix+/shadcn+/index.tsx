@@ -13,6 +13,7 @@ import { SwitchConform } from '#app/components/conform/Switch'
 import { TextareaConform } from '#app/components/conform/Textarea'
 import {
 	ToggleGroupConform,
+	ToggleGroupsConform,
 } from '#app/components/conform/ToggleGroup'
 import { Button } from '#app/components/ui/button'
 import { Label } from '#app/components/ui/label'
@@ -57,14 +58,10 @@ const UserSubscriptionSchema = z.object({
 	accountType: z.enum(['personal', 'business'], {
 		required_error: 'You must select an account type',
 	}),
-	accountTypes: z
-		.array(z.enum(['personal', 'business']), {
-			invalid_type_error: 'Invalid account type',
-		})
-		.refine(
-			(val) => val.length == 0,
-			'You must select at least one account type',
-		),
+	accountTypes: z.array(z.string()).refine((val) => {
+		console.log('###########', val)
+		return val.length > 0
+	}, 'You must select at least one account type'),
 	interests: z
 		.array(z.string())
 		.min(3, 'You must select at least three interest'),
@@ -138,7 +135,10 @@ export default function App() {
 			<h1 className="text-2xl">Shadcn + Conform example</h1>
 			<Form
 				method="POST"
-				{...getFormProps(form)}
+				id={form.id}
+				onSubmit={(e)=>{
+					console.log('onSubmit==================', form.value)
+					form.onSubmit(e)}}
 				className="flex flex-col items-start gap-4"
 			>
 				<Field>
@@ -249,10 +249,9 @@ export default function App() {
 						<FieldError>{fields.accountType.errors}</FieldError>
 					)}
 				</Field>
-				{/* <Field>
+				<Field>
 					<Label htmlFor={fields.accountTypes.id}>Account types</Label>
 					<ToggleGroupsConform
-
 						meta={fields.accountTypes}
 						items={[
 							{ value: 'personal', label: 'Personal' },
@@ -263,7 +262,7 @@ export default function App() {
 					{fields.accountTypes.errors && (
 						<FieldError>{fields.accountTypes.errors}</FieldError>
 					)}
-				</Field> */}
+				</Field>
 				<Field>
 					<fieldset>Interests</fieldset>
 					<CheckboxGroupConform
