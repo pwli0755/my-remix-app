@@ -46,7 +46,9 @@
     "@epic-web/invariant": "^1.0.0",
     "@epic-web/remember": "^1.1.0",
     "@epic-web/totp": "^1.1.2",
+    "@hookform/resolvers": "^3.9.0",
     "@nasa-gcn/remix-seo": "^2.0.1",
+    "@nextui-org/react": "^2.4.6",
     "@paralleldrive/cuid2": "^2.2.2",
     "@prisma/client": "^5.17.0",
     "@radix-ui/react-checkbox": "^1.0.4",
@@ -88,6 +90,7 @@
     "execa": "^9.3.0",
     "express": "^4.19.2",
     "express-rate-limit": "^7.3.1",
+    "framer-motion": "^11.3.30",
     "get-port": "^7.1.0",
     "glob": "^11.0.0",
     "helmet": "^7.1.0",
@@ -103,8 +106,10 @@
     "react": "^18.2.0",
     "react-day-picker": "^8.10.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.53.0",
     "remix-auth": "^3.7.0",
     "remix-auth-github": "^1.7.0",
+    "remix-hook-form": "^5.0.4",
     "remix-utils": "^7.6.0",
     "set-cookie-parser": "^2.6.0",
     "sonner": "^1.5.0",
@@ -113,7 +118,7 @@
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-radix": "^3.0.4",
-    "zod": "3.21.4"
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@epic-web/config": "^1.12.0",

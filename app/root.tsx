@@ -47,6 +47,7 @@ import { type Theme, getTheme } from './utils/theme.server.ts'
 import { makeTimings, time } from './utils/timing.server.ts'
 import { getToast } from './utils/toast.server.ts'
 import { useOptionalUser, useUser } from './utils/user.ts'
+import { NextUIProvider } from '@nextui-org/react'
 
 export const links: LinksFunction = () => {
 	return [
@@ -173,15 +174,17 @@ function Document({
 				<Links />
 			</head>
 			<body className="bg-background text-foreground">
-				{children}
-				<script
-					nonce={nonce}
-					dangerouslySetInnerHTML={{
-						__html: `window.ENV = ${JSON.stringify(env)}`,
-					}}
-				/>
-				<ScrollRestoration nonce={nonce} />
-				<Scripts nonce={nonce} />
+				<NextUIProvider>
+					{children}
+					<script
+						nonce={nonce}
+						dangerouslySetInnerHTML={{
+							__html: `window.ENV = ${JSON.stringify(env)}`,
+						}}
+					/>
+					<ScrollRestoration nonce={nonce} />
+					<Scripts nonce={nonce} />
+				</NextUIProvider>
 			</body>
 		</html>
 	)
