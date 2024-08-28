@@ -63,15 +63,20 @@ export const ToggleGroupsConform = ({
 
 	return (
 		<>
-			<input
-				name={meta.name}
-				className="sr-only"
-				tabIndex={-1}
-				defaultValue={meta.initialValue}
-				onFocus={() => {
-					toggleGroupRef.current?.focus()
-				}}
-			/>
+			{control.value.map((v: string) => {
+				return (
+					<input
+						name={meta.name}
+						className="sr-only"
+						tabIndex={-1}
+						value={v}
+						// defaultValue={meta.initialValue}
+						onFocus={() => {
+							toggleGroupRef.current?.focus()
+						}}
+					/>
+				)
+			})}
 			<ToggleGroup
 				{...props}
 				type="multiple"
